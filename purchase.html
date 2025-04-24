@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zalix Store - Purchase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gradient-dark-start: #4b6cb7;
+      --gradient-dark-end: #2c0959;
+      --text-dark: #f1f5f9;
+      --hover-bright: rgba(255,255,255,0.2);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
+    body {
+      background: linear-gradient(135deg, var(--gradient-dark-start), var(--gradient-dark-end));
+      color: var(--text-dark);
+      padding: 2rem;
+    }
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .group div {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .group div:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      background: var(--hover-bright);
+    }
+    .group h3 {
+      margin-bottom: 1rem;
+    }
+    .group a {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: rgba(255, 255, 255, 0.1);
+      color: inherit;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .group a:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Purchase Center</h1>
+
+  <section>
+    <h2>🚀 Server Boosts</h2>
+    <div class="group">
+      <div>
+        <h3>1 Month Boost</h3>
+        <a href="https://zalixstore.mysellauth.com/product/1mboost" target="_blank">Buy Now</a>
+      </div>
+      <div>
+        <h3>3 Month Boost</h3>
+        <a href="https://zalixstore.mysellauth.com/product/3mboost" target="_blank">Buy Now</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>👥 Member Services</h2>
+    <div class="group">
+      <div>
+        <h3>Online Members</h3>
+        <a href="https://zalixstore.mysellauth.com/product/onlinemembers" target="_blank">Buy Now</a>
+      </div>
+      <div>
+        <h3>Offline Members</h3>
+        <a href="https://zalixstore.mysellauth.com/product/offlinemembers" target="_blank">Buy Now</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>📅 Aged Discord Accounts</h2>
+    <div class="group">
+      <div>
+        <h3>2016 Account</h3>
+        <a href="https://zalixstore.mysellauth.com/product/2016account" target="_blank">Buy Now</a>
+      </div>
+      <div>
+        <h3>2017 Account</h3>
+        <a href="https://zalixstore.mysellauth.com/product/2017account" target="_blank">Buy Now</a>
+      </div>
+      <div>
+        <h3>2018 Account</h3>
+        <a href="https://zalixstore.mysellauth.com/product/2018account" target="_blank">Buy Now</a>
+      </div>
+      <div>
+        <h3>2019 Account</h3>
+        <a href="https://zalixstore.mysellauth.com/product/2019account" target="_blank">Buy Now</a>
+      </div>
+      <div>
+        <h3>2020 Account</h3>
+        <a href="https://zalixstore.mysellauth.com/product/2020account" target="_blank">Buy Now</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
