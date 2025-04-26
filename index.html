@@ -27,8 +27,14 @@
     .toggle { cursor:pointer; font-size:1.2rem; }
     .hero { text-align:center; padding:6rem 2rem; }
     .hero h1 { font-size:3rem; margin-bottom:0.5rem; }
-    .hero p { font-size:1.1rem; opacity:0.8; margin-bottom:1.5rem; }
-    .hero .buttons { display:flex; flex-direction:column; gap:1rem; align-items:center; justify-content:center; }
+    .hero p { font-size:1.1rem; opacity:0.8; margin-bottom:2rem; }
+    .hero .buttons {
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+      justify-content:center;
+      align-items:center;
+    }
     .hero a.button {
       background:rgba(255,255,255,0.1);
       padding:0.75rem 1.5rem;
@@ -79,6 +85,13 @@
     }
     .contacts i { font-size:1.5rem; margin-right:0.5rem; }
     footer { text-align:center; padding:2rem 1rem; font-size:0.9rem; opacity:0.7; }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .hero .buttons {
+        flex-direction:column;
+      }
+    }
   </style>
 </head>
 <body>
@@ -95,13 +108,13 @@
   </header>
 
   <section class="hero">
-  <h1>Welcome to Zalix Store</h1>
-  <p>Your premier destination for Discord server boosts and advanced server solutions.</p>
-  <div class="buttons horizontal">
-    <a href="#services" class="button">Explore Services</a>
-    <a href="https://zalix.space/purchase" target="_blank" class="button">Purchase Now</a>
-    <a href="https://zalix.space/vouches" target="_blank" class="button">View Vouches</a>
-  </div>
+    <h1>Welcome to Zalix Store</h1>
+    <p>Your premier destination for Discord server boosts and advanced server solutions.</p>
+    <div class="buttons">
+      <a href="#services" class="button">Explore Services</a>
+      <a href="https://zalix.space/purchase" target="_blank" class="button">Purchase Now</a>
+      <a href="https://zalix.space/vouches" target="_blank" class="button">Vouches</a>
+    </div>
   </section>
 
   <section id="services" class="section">
@@ -146,13 +159,6 @@
       entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
     }, { threshold: 0.2 });
     document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('light-mode');
-    }
-    function toggleDropdown() {
-      const menu = document.getElementById('dropdownMenu');
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
   </script>
 </body>
 </html>
