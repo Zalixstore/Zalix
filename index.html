@@ -1,164 +1,403 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zalix Store</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <style>
-    :root {
-      --gradient-dark-start: #4b6cb7;
-      --gradient-dark-end: #2c0959;
-      --text-dark: #f1f5f9;
-      --hover-bright: rgba(255,255,255,0.3);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
-    body {
-      background: linear-gradient(135deg, var(--gradient-dark-start), var(--gradient-dark-end));
-      color: var(--text-dark);
-      transition: background 0.3s, color 0.3s;
-    }
-    header { display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; position:sticky; top:0; backdrop-filter:blur(8px); background:rgba(30,30,50,0.6); z-index:100; }
-    header img.logo { height:50px; transition:transform 0.3s; }
-    header img.logo:hover { transform:scale(1.1); }
-    nav a { margin:0 1rem; color:inherit; text-decoration:none; font-weight:600; transition:color 0.3s; }
-    nav a:hover { color:var(--hover-bright); }
-    .toggle { cursor:pointer; font-size:1.2rem; }
-    .hero { text-align:center; padding:6rem 2rem; }
-    .hero h1 { font-size:3rem; margin-bottom:0.5rem; }
-    .hero p { font-size:1.1rem; opacity:0.8; margin-bottom:2rem; }
-    .hero .buttons {
-      display:flex;
-      flex-wrap:wrap;
-      gap:1rem;
-      justify-content:center;
-      align-items:center;
-    }
-    .hero a.button {
-      background:rgba(255,255,255,0.1);
-      padding:0.75rem 1.5rem;
-      border-radius:0.5rem;
-      color:inherit;
-      text-decoration:none;
-      font-weight:600;
-      transition:background 0.3s, transform 0.3s;
-    }
-    .hero a.button:hover {
-      background:rgba(255,255,255,0.2);
-      transform:translateY(-3px);
-    }
-    .section { max-width:1000px; margin:auto; padding:3rem 1rem; opacity:0; transform:translateY(30px); transition:opacity 0.6s, transform 0.6s; }
-    .section.visible { opacity:1; transform:translateY(0); }
-    .services, .feedback { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; margin-top:2rem; }
-    .services div, .feedback div {
-      background:rgba(255,255,255,0.05);
-      padding:1.5rem;
-      border-radius:0.75rem;
-      box-shadow:0 8px 20px rgba(0,0,0,0.15);
-      transition:transform 0.3s, box-shadow 0.3s, background 0.3s;
-      cursor:pointer;
-    }
-    .services div:hover, .feedback div:hover {
-      transform:translateY(-5px);
-      box-shadow:0 15px 30px rgba(0,0,0,0.3);
-      background:var(--hover-bright);
-    }
-    .services h3, .feedback h3 { font-size:1.25rem; margin-bottom:0.5rem; }
-    .contacts { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:2rem; }
-    .contacts a {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,0.05);
-      padding:1rem;
-      border-radius:0.75rem;
-      box-shadow:0 8px 20px rgba(0,0,0,0.15);
-      color:inherit;
-      text-decoration:none;
-      transition:transform 0.3s, box-shadow 0.3s, background 0.3s;
-    }
-    .contacts a:hover {
-      transform:translateY(-5px);
-      box-shadow:0 15px 30px rgba(0,0,0,0.3);
-      background:var(--hover-bright);
-    }
-    .contacts i { font-size:1.5rem; margin-right:0.5rem; }
-    footer { text-align:center; padding:2rem 1rem; font-size:0.9rem; opacity:0.7; }
-
-    /* Responsive tweaks */
-    @media (max-width: 600px) {
-      .hero .buttons {
-        flex-direction:column;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zalix Store - Premium Discord Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s ease-out forwards',
+                        'zoom-in': 'zoomIn 0.6s ease-out forwards',
+                        'float': 'float 3s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .animate-on-scroll.visible {
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+        
+        .gradient-bg {
+            background: #000000;
+            position: relative;
+        }
+        
+        .space-orb {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: float-space 6s ease-in-out infinite;
+        }
+        
+        @keyframes float-space {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px);
+                opacity: 0.8;
+            }
+            33% { 
+                transform: translateY(-20px) translateX(10px);
+                opacity: 0.6;
+            }
+            66% { 
+                transform: translateY(10px) translateX(-15px);
+                opacity: 1;
+            }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <img src="logo.png" alt="Zalix Store Logo" class="logo" />
-    <nav>
-      <a href="#services">Our Services</a>
-      <a href="#feedback">Feedback</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="toggle" onclick="document.documentElement.classList.toggle('light-mode')">
-      <i class="fas fa-moon"></i>
-    </div>
-  </header>
+<body class="font-inter text-white gradient-bg min-h-screen">
+    <!-- Space Orbs Background -->
+    <div id="space-orbs" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></div>
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-black/20 backdrop-blur-md z-50 border-b border-white/10">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-white">
+                    <span class="text-blue-400">Zalix</span> Store
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-blue-400 transition-colors">Home</a>
+                    <a href="#services" class="hover:text-blue-400 transition-colors">Services</a>
+                    <a href="#vouches" class="hover:text-blue-400 transition-colors">Vouches</a>
+                    <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
+                </div>
+                <button class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-  <section class="hero">
-    <h1>Welcome to Zalix Store</h1>
-    <p>Your premier destination for Discord server boosts and advanced server solutions.</p>
-    <div class="buttons">
-      <a href="#services" class="button">Explore Services</a>
-      <a href="https://zalix.space/purchase" target="_blank" class="button">Purchase Now</a>
-      <a href="https://zalix.space/vouches" target="_blank" class="button">View Vouches</a>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="animate-on-scroll">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    Elevate Your Discord Server with <span class="text-blue-400 animate-float inline-block">Zalix</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                    Nitro Boosts, Server Setup, Followers, Aged Accounts & More
+                </p>
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <a href="#services" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        🔗 Explore Products
+                    </a>
+                    <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        💸 Purchase Now
+                    </a>
+                    <a href="https://zalix.space/vouches" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        🧾 View Vouches
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="services" class="section">
-    <h1 style="text-align:center;">Our Services</h1>
-    <div class="services">
-      <div><h3><i class="fas fa-rocket"></i> Server Boosts</h3><p>Level up with real Nitro boosts to unlock premium server perks.</p></div>
-      <div><h3><i class="fas fa-cogs"></i> Custom Setup</h3><p>Streamline your community with professional role & bot configurations.</p></div>
-      <div><h3><i class="fas fa-users"></i> Member Injections</h3><p>Add realistic members for a vibrant server atmosphere.</p></div>
-      <div><h3><i class="fas fa-user-shield"></i> Aged Accounts</h3><p>Secure, aged tokens & accounts for reliable administration.</p></div>
-      <div><h3><i class="fas fa-smile"></i> Custom Emojis & Branding</h3><p>Design and upload emojis, banners, and icons that match your server’s theme.</p></div>
-      <div><h3><i class="fas fa-comments"></i> Community Engagement</h3><p>Strategies and events to boost activity and interaction in your server.</p></div>
-    </div>
-  </section>
+    <!-- Services Section -->
+    <section id="services" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Our Premium Services</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Everything you need to boost your Discord presence and grow your community
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Discord Nitro Boosts -->
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="text-4xl mb-4">💎</div>
+                    <h3 class="text-2xl font-bold mb-4">Discord Nitro Boosts</h3>
+                    <p class="text-gray-300 mb-6">Boost your server with premium Nitro boosts</p>
+                    <div class="space-y-3">
+                        <a href="https://zalixstore.mysellauth.com/product/1mboost" target="_blank" class="block bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-center transition-colors">
+                            1 Month Boosts
+                        </a>
+                        <a href="https://zalixstore.mysellauth.com/product/3mboost" target="_blank" class="block bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-center transition-colors">
+                            3 Month Boosts
+                        </a>
+                    </div>
+                </div>
 
-  <section id="feedback" class="section">
-    <h1 style="text-align:center;">Feedback</h1>
-    <div class="feedback">
-      <div><h3>⭐ ⭐ ⭐ ⭐ ⭐</h3><p>“Zalix helped me skyrocket my server's activity!”</p><p><strong>- NeonNinja</strong></p></div>
-      <div><h3>⭐ ⭐ ⭐ ⭐ ⭐</h3><p>“Fast, reliable, and exactly what I needed.”</p><p><strong>- PixelPenguin</strong></p></div>
-      <div><h3>⭐ ⭐ ⭐ ⭐ ⭐</h3><p>“Professional setup and great support!”</p><p><strong>- GlitchGuru</strong></p></div>
-      <div><h3>⭐ ⭐ ⭐ ⭐ ⭐</h3><p>“Exceptional service, highly recommend.”</p><p><strong>- VibeVoyager</strong></p></div>
-    </div>
-  </section>
+                <!-- Online Members -->
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="text-4xl mb-4">👥</div>
+                    <h3 class="text-2xl font-bold mb-4">Online Members</h3>
+                    <p class="text-gray-300 mb-6">Boost your server's online presence instantly</p>
+                    <a href="https://zalixstore.mysellauth.com/product/onlinemembers" target="_blank" class="block bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-center transition-colors">
+                        Buy Now
+                    </a>
+                </div>
 
-  <section id="contact" class="section">
-    <h1 style="text-align:center;">Contact</h1>
-    <div class="contacts">
-      <a href="https://discord.gg/46YYRSSAJF" target="_blank"><i class="fab fa-discord"></i>Discord</a>
-      <a href="https://t.me/zalixstore" target="_blank"><i class="fab fa-telegram"></i>Telegram</a>
-      <a href="https://whop.com/zalixstore" target="_blank"><i class="fas fa-store"></i>Whop Store</a>
-      <a href="https://x.com/zalixboosts" target="_blank"><i class="fab fa-twitter"></i>X (Twitter)</a>
-      <a href="https://instagram.com/zalixstore" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
-    </div>
-  </section>
+                <!-- Offline Members -->
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="text-4xl mb-4">🕵️‍♂️</div>
+                    <h3 class="text-2xl font-bold mb-4">Offline Members</h3>
+                    <p class="text-gray-300 mb-6">Increase your total member count effectively</p>
+                    <a href="https://zalixstore.mysellauth.com/product/offlinemembers" target="_blank" class="block bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-center transition-colors">
+                        Buy Now
+                    </a>
+                </div>
 
-  <footer>
-    &copy; 2025 Zalix Store • All rights reserved.
-  </footer>
+                <!-- Aged Discord Accounts -->
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="text-4xl mb-4">📆</div>
+                    <h3 class="text-2xl font-bold mb-4">Aged Discord Accounts</h3>
+                    <p class="text-gray-300 mb-6">Premium aged accounts for your needs</p>
+                    <div class="text-sm space-y-2 mb-4">
+                        <div class="flex justify-between">
+                            <span>2016 Accounts:</span>
+                            <span class="text-green-400 font-semibold">$25</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>2017 Accounts:</span>
+                            <span class="text-green-400 font-semibold">$15</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>2018+ Accounts:</span>
+                            <span class="text-green-400 font-semibold">$10</span>
+                        </div>
+                    </div>
+                    <a href="https://zalixstore.mysellauth.com" target="_blank" class="block bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg text-center transition-colors">
+                        View All
+                    </a>
+                </div>
 
-  <script>
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
-    }, { threshold: 0.2 });
-    document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
-  </script>
-</body>
+                <!-- Instagram/TikTok Followers -->
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 card-hover animate-on-scroll relative">
+                    <div class="absolute -top-3 -right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                        NEW
+                    </div>
+                    <div class="text-4xl mb-4">📸</div>
+                    <h3 class="text-2xl font-bold mb-4">Instagram/TikTok Followers</h3>
+                    <p class="text-gray-300 mb-4">Grow your social media presence</p>
+                    <div class="text-center mb-4">
+                        <span class="text-2xl font-bold text-green-400">$5.99</span>
+                        <span class="text-gray-300"> per 1,000 followers</span>
+                    </div>
+                    <a href="https://zalixstore.mysellauth.com" target="_blank" class="block bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-lg text-center transition-colors">
+                        Order Now
+                    </a>
+                </div>
+
+                <!-- Custom Server Setup -->
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="text-4xl mb-4">⚙️</div>
+                    <h3 class="text-2xl font-bold mb-4">Custom Server Setup</h3>
+                    <p class="text-gray-300 mb-6">Professional Discord server configuration</p>
+                    <a href="https://zalixstore.mysellauth.com" target="_blank" class="block bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-lg text-center transition-colors">
+                        Get Quote
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vouches Section -->
+    <section id="vouches" class="py-20 bg-black/20">
+        <div class="container mx-auto px-6">
+            <div class="text-center animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Trusted by Thousands</h2>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                    Don't just take our word for it - see what our satisfied customers have to say
+                </p>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-12 max-w-2xl mx-auto">
+                    <div class="text-6xl mb-6">⭐⭐⭐⭐⭐</div>
+                    <p class="text-lg text-gray-300 mb-8">
+                        "Zalix Store has been incredible for growing my Discord server. Fast delivery, great prices, and excellent customer service!"
+                    </p>
+                    <a href="https://zalix.space/vouches" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105">
+                        👉 View All Vouches
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Get in Touch</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Ready to boost your Discord server? Contact us through any of these platforms
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <a href="https://discord.com/invite/46YYRSSAJF" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 p-6 rounded-2xl text-center transition-all transform hover:scale-105 card-hover">
+                    <div class="text-3xl mb-3">💬</div>
+                    <div class="font-semibold">Discord Server</div>
+                </a>
+                
+                <a href="https://whop.com/zalixstore" target="_blank" class="bg-purple-600 hover:bg-purple-700 p-6 rounded-2xl text-center transition-all transform hover:scale-105 card-hover">
+                    <div class="text-3xl mb-3">💼</div>
+                    <div class="font-semibold">Whop Store</div>
+                </a>
+                
+                <a href="https://instagram.com/zalixstore" target="_blank" class="bg-pink-600 hover:bg-pink-700 p-6 rounded-2xl text-center transition-all transform hover:scale-105 card-hover">
+                    <div class="text-3xl mb-3">📱</div>
+                    <div class="font-semibold">Instagram</div>
+                </a>
+                
+                <a href="https://x.com/zalixboosts" target="_blank" class="bg-blue-500 hover:bg-blue-600 p-6 rounded-2xl text-center transition-all transform hover:scale-105 card-hover">
+                    <div class="text-3xl mb-3">🐦</div>
+                    <div class="font-semibold">X / Twitter</div>
+                </a>
+                
+                <a href="https://t.me/zalixstore" target="_blank" class="bg-blue-400 hover:bg-blue-500 p-6 rounded-2xl text-center transition-all transform hover:scale-105 card-hover">
+                    <div class="text-3xl mb-3">✈️</div>
+                    <div class="font-semibold">Telegram</div>
+                </a>
+                
+                <div class="bg-gray-600 p-6 rounded-2xl text-center">
+                    <div class="text-3xl mb-3">📩</div>
+                    <div class="font-semibold">Discord DM</div>
+                    <div class="text-sm text-gray-300 mt-1">zalixboost</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-black/30 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center">
+            <div class="text-2xl font-bold mb-4">
+                <span class="text-blue-400">Zalix</span> Store
+            </div>
+            <p class="text-gray-400 mb-6">Premium Discord Services & Social Media Growth</p>
+            <p class="text-sm text-gray-500">
+                © 2024 Zalix Store. All rights reserved. | Professional Discord & Social Media Services
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating space orbs
+        function createSpaceOrbs() {
+            const orbContainer = document.getElementById('space-orbs');
+            const orbCount = 150; // Number of orbs
+            
+            // Set container to cover full document
+            setTimeout(() => {
+                const fullHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+                orbContainer.style.height = fullHeight + 'px';
+                
+                for (let i = 0; i < orbCount; i++) {
+                    const orb = document.createElement('div');
+                    orb.className = 'space-orb';
+                    
+                    // Random size between 1px and 12px for more variety
+                    const size = Math.random() * 11 + 1;
+                    orb.style.width = size + 'px';
+                    orb.style.height = size + 'px';
+                    
+                    // Random position across entire page
+                    orb.style.left = Math.random() * 100 + '%';
+                    orb.style.top = Math.random() * fullHeight + 'px';
+                    
+                    // Random animation delay
+                    orb.style.animationDelay = Math.random() * 6 + 's';
+                    
+                    // Random animation duration
+                    orb.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                    
+                    // Random opacity for more depth
+                    orb.style.opacity = Math.random() * 0.6 + 0.3;
+                    
+                    orbContainer.appendChild(orb);
+                }
+            }, 100);
+        }
+
+        // Smooth scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create space orbs
+            createSpaceOrbs();
+            
+            // Observe all elements with animate-on-scroll class
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            animateElements.forEach(el => observer.observe(el));
+        });
+
+        // Mobile menu toggle (basic implementation)
+        document.querySelector('button').addEventListener('click', function() {
+            // Simple mobile menu toggle - you can expand this
+            alert('Mobile menu - you can implement a slide-out menu here!');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963c4173f18fc169',t:'MTc1MzI4NTAxMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
