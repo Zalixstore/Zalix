@@ -1,121 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zalix Store - Purchase</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --gradient-dark-start: #4b6cb7;
-      --gradient-dark-end: #2c0959;
-      --text-dark: #f1f5f9;
-      --hover-bright: rgba(255,255,255,0.2);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
-    body {
-      background: linear-gradient(135deg, var(--gradient-dark-start), var(--gradient-dark-end));
-      color: var(--text-dark);
-      padding: 2rem;
-    }
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .group {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-    .group div {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 1.5rem;
-      border-radius: 0.75rem;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-    }
-    .group div:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-      background: var(--hover-bright);
-    }
-    .group h3 {
-      margin-bottom: 1rem;
-    }
-    .group a {
-      display: inline-block;
-      padding: 0.6rem 1.2rem;
-      background: rgba(255, 255, 255, 0.1);
-      color: inherit;
-      text-decoration: none;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      transition: background 0.3s;
-    }
-    .group a:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Zalix Store | Premium Discord Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s ease-out forwards',
+                        'zoom-in': 'zoomIn 0.6s ease-out forwards',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8); }
+        }
+        
+        @keyframes float-space {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px);
+                opacity: 0.8;
+            }
+            33% { 
+                transform: translateY(-20px) translateX(10px);
+                opacity: 0.6;
+            }
+            66% { 
+                transform: translateY(10px) translateX(-15px);
+                opacity: 1;
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #16213e 100%);
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .space-orb {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: float-space 6s ease-in-out infinite;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .product-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .pricing-tier {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
 </head>
-<body>
+<body class="font-inter text-white gradient-bg min-h-screen">
+    <!-- Space Orbs Background -->
+    <div id="space-orbs" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></div>
+    
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-black/20 backdrop-blur-md z-50 border-b border-white/10">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-white">
+                    <span class="text-blue-400">Zalix</span> Store
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="hover:text-blue-400 transition-colors">Home</a>
+                    <a href="#products" class="text-blue-400">Products</a>
+                    <a href="vouches.html" class="hover:text-blue-400 transition-colors">Vouches</a>
+                    <a href="https://discord.com/invite/46YYRSSAJF" target="_blank" class="hover:text-blue-400 transition-colors">Discord</a>
+                </div>
+                <button class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-  <h1>Purchase Center</h1>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="animate-on-scroll">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    🛒 Zalix Store <span class="text-blue-400 animate-float inline-block">Price List</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                    Everything you need to boost your Discord server and grow your online presence
+                </p>
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center mb-12">
+                    <div class="bg-green-600/20 border border-green-500 px-6 py-3 rounded-full">
+                        <span class="text-green-400 font-bold">✅ Instant Delivery</span>
+                    </div>
+                    <div class="bg-blue-600/20 border border-blue-500 px-6 py-3 rounded-full">
+                        <span class="text-blue-400 font-bold">🔒 100% Safe</span>
+                    </div>
+                    <div class="bg-purple-600/20 border border-purple-500 px-6 py-3 rounded-full">
+                        <span class="text-purple-400 font-bold">💎 Premium Quality</span>
+                    </div>
+                </div>
+                <a href="#products" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 inline-flex items-center gap-2 animate-pulse-glow">
+                    🛒 Browse Products
+                </a>
+            </div>
+        </div>
+    </section>
 
-  <section>
-    <h2>🚀 Server Boosts</h2>
-    <div class="group">
-      <div>
-        <h3>1 Month Boost</h3>
-        <a href="https://zalixstore.mysellauth.com/product/1mboost" target="_blank">Buy Now</a>
-      </div>
-      <div>
-        <h3>3 Month Boost</h3>
-        <a href="https://zalixstore.mysellauth.com/product/3mboost" target="_blank">Buy Now</a>
-      </div>
-    </div>
-  </section>
+    <!-- Products Section -->
+    <section id="products" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">🔹 Discord Nitro Server Boosts</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Boost your server to Level 3 with our premium Nitro services
+                </p>
+            </div>
+            
+            <!-- Discord Nitro Boosts -->
+            <div class="mb-20 animate-on-scroll">
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="product-card rounded-2xl p-8 card-hover">
+                        <div class="text-center mb-6">
+                            <div class="text-5xl mb-4">📦</div>
+                            <h4 class="text-2xl font-bold mb-2">1 Month (Level 3)</h4>
+                            <p class="text-gray-300">Perfect for short-term server enhancement</p>
+                        </div>
+                        <div class="pricing-tier rounded-lg p-4 mb-6">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-blue-400 mb-2">$9.99</div>
+                                <div class="text-gray-300">per boost</div>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Instant Level 3 boost</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>High-quality accounts</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>24/7 support</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Guaranteed delivery</span>
+                            </li>
+                        </ul>
+                        <a href="https://zalixstore.mysellauth.com/product/1mboost" target="_blank" class="block bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-center font-semibold transition-colors">
+                            🔗 Buy Now
+                        </a>
+                    </div>
 
-  <section>
-    <h2>👥 Member Services</h2>
-    <div class="group">
-      <div>
-        <h3>Online Members</h3>
-        <a href="https://zalixstore.mysellauth.com/product/onlinemembers" target="_blank">Buy Now</a>
-      </div>
-      <div>
-        <h3>Offline Members</h3>
-        <a href="https://zalixstore.mysellauth.com/product/offlinemembers" target="_blank">Buy Now</a>
-      </div>
-    </div>
-  </section>
+                    <div class="product-card rounded-2xl p-8 card-hover relative">
+                        <div class="absolute -top-3 -right-3 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            BEST VALUE
+                        </div>
+                        <div class="text-center mb-6">
+                            <div class="text-5xl mb-4">📦</div>
+                            <h4 class="text-2xl font-bold mb-2">3 Months (Level 3)</h4>
+                            <p class="text-gray-300">Best value for long-term growth</p>
+                        </div>
+                        <div class="pricing-tier rounded-lg p-4 mb-6">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-purple-400 mb-2">$19.99</div>
+                                <div class="text-gray-300">per boost</div>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Instant Level 3 boost</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Premium accounts</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Priority support</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Better value per month</span>
+                            </li>
+                        </ul>
+                        <a href="https://zalixstore.mysellauth.com/product/3mboost" target="_blank" class="block bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg text-center font-semibold transition-colors">
+                            🔗 Buy Now
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-  <section>
-    <h2>📅 Aged Discord Accounts</h2>
-    <div class="group">
-      <div>
-        <h3>2016 Account</h3>
-        <a href="https://zalixstore.mysellauth.com/product/2016account" target="_blank">Buy Now</a>
-      </div>
-      <div>
-        <h3>2017 Account</h3>
-        <a href="https://zalixstore.mysellauth.com/product/2017account" target="_blank">Buy Now</a>
-      </div>
-      <div>
-        <h3>2018 Account</h3>
-        <a href="https://zalixstore.mysellauth.com/product/2018account" target="_blank">Buy Now</a>
-      </div>
-      <div>
-        <h3>2019 Account</h3>
-        <a href="https://zalixstore.mysellauth.com/product/2019account" target="_blank">Buy Now</a>
-      </div>
-      <div>
-        <h3>2020 Account</h3>
-        <a href="https://zalixstore.mysellauth.com/product/2020account" target="_blank">Buy Now</a>
-      </div>
-    </div>
-  </section>
+            <!-- Discord Members -->
+            <div class="mb-20 animate-on-scroll">
+                <h3 class="text-3xl font-bold mb-8 text-center">👥 Discord Members</h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="product-card rounded-2xl p-8 card-hover">
+                        <div class="text-center mb-6">
+                            <div class="text-5xl mb-4">✅</div>
+                            <h4 class="text-2xl font-bold mb-2">Online Members</h4>
+                            <p class="text-gray-300">Boost your server's active presence</p>
+                        </div>
+                        <div class="pricing-tier rounded-lg p-6 mb-6">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-green-400 mb-2">$8.00</div>
+                                <div class="text-gray-300">per 1,000 members</div>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Real online presence</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Instant delivery</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>High retention rate</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>24/7 support</span>
+                            </li>
+                        </ul>
+                        <a href="https://zalixstore.mysellauth.com/product/onlinemembers" target="_blank" class="block bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-center font-semibold transition-colors">
+                            🔗 Buy Now
+                        </a>
+                    </div>
 
-</body>
+                    <div class="product-card rounded-2xl p-8 card-hover">
+                        <div class="text-center mb-6">
+                            <div class="text-5xl mb-4">🕸️</div>
+                            <h4 class="text-2xl font-bold mb-2">Offline Members</h4>
+                            <p class="text-gray-300">Increase your total member count</p>
+                        </div>
+                        <div class="pricing-tier rounded-lg p-6 mb-6">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-blue-400 mb-2">$4.00</div>
+                                <div class="text-gray-300">per 1,000 members</div>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Boost member count</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Cost-effective option</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Permanent members</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-400">✓</span>
+                                <span>Fast delivery</span>
+                            </li>
+                        </ul>
+                        <a href="https://zalixstore.mysellauth.com/product/offlinemembers" target="_blank" class="block bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-center font-semibold transition-colors">
+                            🔗 Buy Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aged Discord Accounts -->
+            <div class="mb-20 animate-on-scroll">
+                <h3 class="text-3xl font-bold mb-8 text-center">📅 Aged Discord Accounts</h3>
+                <div class="max-w-6xl mx-auto">
+                    <div class="product-card rounded-2xl p-8">
+                        <div class="text-center mb-8">
+                            <div class="text-5xl mb-4">🏆</div>
+                            <h4 class="text-2xl font-bold mb-2">Premium Aged Accounts</h4>
+                            <p class="text-gray-300">High-quality aged Discord accounts with full access</p>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-center">
+                                <thead>
+                                    <tr class="border-b border-white/20">
+                                        <th class="py-4 px-6 text-xl font-bold text-blue-400">Year</th>
+                                        <th class="py-4 px-6 text-xl font-bold text-green-400">Price (per account)</th>
+                                        <th class="py-4 px-6 text-xl font-bold text-purple-400">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="space-y-2">
+                                    <tr class="border-b border-white/10">
+                                        <td class="py-4 px-6 font-semibold">2016</td>
+                                        <td class="py-4 px-6 text-yellow-400 font-bold text-lg">$25.00</td>
+                                        <td class="py-4 px-6">
+                                            <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg font-semibold transition-colors">Buy Now</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/10">
+                                        <td class="py-4 px-6 font-semibold">2017</td>
+                                        <td class="py-4 px-6 text-blue-400 font-bold text-lg">$15.00</td>
+                                        <td class="py-4 px-6">
+                                            <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-semibold transition-colors">Buy Now</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/10">
+                                        <td class="py-4 px-6 font-semibold">2018</td>
+                                        <td class="py-4 px-6 text-green-400 font-bold text-lg">$12.50</td>
+                                        <td class="py-4 px-6">
+                                            <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold transition-colors">Buy Now</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/10">
+                                        <td class="py-4 px-6 font-semibold">2019</td>
+                                        <td class="py-4 px-6 text-purple-400 font-bold text-lg">$10.00</td>
+                                        <td class="py-4 px-6">
+                                            <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg font-semibold transition-colors">Buy Now</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/10">
+                                        <td class="py-4 px-6 font-semibold">2020</td>
+                                        <td class="py-4 px-6 text-pink-400 font-bold text-lg">$7.50</td>
+                                        <td class="py-4 px-6">
+                                            <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-pink-600 hover:bg-pink-700 px-4 py-2 rounded-lg font-semibold transition-colors">Buy Now</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/10">
+                                        <td class="py-4 px-6 font-semibold">2021</td>
+                                        <td class="py-4 px-6 text-indigo-400 font-bold text-lg">$5.00</td>
+                                        <td class="py-4 px-6">
+                                            <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg font-semibold transition-colors">Buy Now</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/10">
+                                        <td class="py-4 px-6 font-semibold">2022</td>
+                                        <td class="py-4 px-6 text-cyan-400 font-bold text-lg">$3.00</td>
+                                        <td class="py-4 px-6">
+                                            <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-cyan-600 hover:bg-cyan-700 px-4 py-2 rounded-lg font-semibold transition-colors">Buy Now</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 px-6 font-semibold">2023</td>
+                                        <td class="py-4 px-6 text-red-400 font-bold text-lg">$2.00</td>
+                                        <td class="py-4 px-6">
+                                            <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-semibold transition-colors">Buy Now</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="mt-8 text-center">
+                            <p class="text-gray-300 mb-4">All accounts include full access and email</p>
+                            <div class="flex flex-wrap justify-center gap-4">
+                                <span class="bg-green-600/20 border border-green-500 px-4 py-2 rounded-full text-green-400">✓ Email Included</span>
+                                <span class="bg-blue-600/20 border border-blue-500 px-4 py-2 rounded-full text-blue-400">✓ Full Access</span>
+                                <span class="bg-purple-600/20 border border-purple-500 px-4 py-2 rounded-full text-purple-400">✓ Instant Delivery</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Services -->
+            <div class="mb-20 animate-on-scroll">
+                <h3 class="text-3xl font-bold mb-8 text-center">📸 Instagram & TikTok Followers</h3>
+                <div class="max-w-2xl mx-auto">
+                    <div class="product-card rounded-2xl p-8 card-hover">
+                        <div class="text-center mb-6">
+                            <div class="text-5xl mb-4">🚀</div>
+                            <h4 class="text-2xl font-bold mb-2">High-Quality Followers</h4>
+                            <p class="text-gray-300">Grow your social media presence with premium followers</p>
+                        </div>
+                        <div class="pricing-tier rounded-lg p-6 mb-6">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-pink-400 mb-2">$9.99</div>
+                                <div class="text-gray-300">per 1,000 followers</div>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4 mb-8">
+                            <div class="pricing-tier rounded-lg p-4 text-center">
+                                <div class="font-semibold mb-2">📸 Instagram</div>
+                                <div class="text-pink-400">High Quality</div>
+                                <div class="text-sm text-gray-400">Real-looking profiles</div>
+                            </div>
+                            <div class="pricing-tier rounded-lg p-4 text-center">
+                                <div class="font-semibold mb-2">🎵 TikTok</div>
+                                <div class="text-pink-400">Fast Delivery</div>
+                                <div class="text-sm text-gray-400">24-48 hour completion</div>
+                            </div>
+                        </div>
+                        <a href="https://discord.com/invite/46YYRSSAJF" target="_blank" class="block bg-pink-600 hover:bg-pink-700 px-6 py-3 rounded-lg text-center font-semibold transition-colors">
+                            💬 Contact on Discord
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Server Management Package -->
+            <div class="mb-20 animate-on-scroll">
+                <h3 class="text-3xl font-bold mb-8 text-center">🛠️ Full Server Management Package</h3>
+                <div class="max-w-3xl mx-auto">
+                    <div class="product-card rounded-2xl p-8 card-hover relative">
+                        <div class="absolute -top-3 -right-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                            PREMIUM
+                        </div>
+                        <div class="text-center mb-6">
+                            <div class="text-5xl mb-4">🔧</div>
+                            <h4 class="text-2xl font-bold mb-2">Complete Server Solution</h4>
+                            <p class="text-gray-300">Everything you need for a professional Discord server</p>
+                        </div>
+                        
+                        <div class="pricing-tier rounded-lg p-6 mb-8">
+                            <div class="text-center">
+                                <div class="text-5xl font-bold text-yellow-400 mb-2">$250</div>
+                                <div class="text-gray-300 text-lg">per month</div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="space-y-4">
+                                <h5 class="text-xl font-bold text-blue-400 mb-3">🔧 Setup Included:</h5>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-400">✓</span>
+                                        <span>Complete server setup</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-400">✓</span>
+                                        <span>Custom roles & permissions</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-400">✓</span>
+                                        <span>Channel organization</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-400">✓</span>
+                                        <span>Bot integration</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <h5 class="text-xl font-bold text-purple-400 mb-3">🎁 Monthly Benefits:</h5>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-400">✓</span>
+                                        <span>Active moderation</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-400">✓</span>
+                                        <span>Nitro giveaways (2x/week)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-400">✓</span>
+                                        <span>Landing page website</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-400">✓</span>
+                                        <span>Free hosting included</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border border-yellow-500/30 rounded-lg p-4 mb-6">
+                            <div class="text-center">
+                                <div class="text-yellow-400 font-bold mb-2">🌐 Bonus: Landing Page Website + Hosting Included</div>
+                                <div class="text-gray-300 text-sm">Professional website for your community with free hosting</div>
+                            </div>
+                        </div>
+                        
+                        <a href="https://discord.com/invite/46YYRSSAJF" target="_blank" class="block bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 px-6 py-4 rounded-lg text-center font-bold text-lg transition-all transform hover:scale-105">
+                            💬 Contact on Discord - $250/month
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-black/20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl font-bold mb-6">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Everything you need to know about our services
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto space-y-6">
+                <div class="product-card rounded-2xl p-6 animate-on-scroll">
+                    <h3 class="text-xl font-bold mb-3">How fast is delivery?</h3>
+                    <p class="text-gray-300">Most services are delivered instantly or within 24 hours. The Full Server Management Package setup takes 1-3 business days for complete configuration.</p>
+                </div>
+                
+                <div class="product-card rounded-2xl p-6 animate-on-scroll">
+                    <h3 class="text-xl font-bold mb-3">Are your services safe?</h3>
+                    <p class="text-gray-300">Yes! All our services are 100% safe and compliant with Discord's terms. We use high-quality accounts and methods to ensure your server's safety.</p>
+                </div>
+                
+                <div class="product-card rounded-2xl p-6 animate-on-scroll">
+                    <h3 class="text-xl font-bold mb-3">What's included in the Full Server Management Package?</h3>
+                    <p class="text-gray-300">Complete server setup, active moderation, Nitro giveaways twice per week, a custom landing page website with free hosting, and ongoing support for $250/month.</p>
+                </div>
+                
+                <div class="product-card rounded-2xl p-6 animate-on-scroll">
+                    <h3 class="text-xl font-bold mb-3">Do you offer bulk discounts?</h3>
+                    <p class="text-gray-300">Yes! We offer significant discounts for bulk orders. Contact us on Discord or Telegram for custom pricing on large quantities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Get Started?</h2>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                    Join thousands of satisfied customers and boost your Discord server today
+                </p>
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        🛒 Visit Store
+                    </a>
+                    <a href="https://discord.com/invite/46YYRSSAJF" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        💬 Get Support
+                    </a>
+                    <a href="vouches.html" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        ⭐ Read Reviews
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-black/30 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center">
+            <div class="text-2xl font-bold mb-4">
+                <span class="text-blue-400">Zalix</span> Store
+            </div>
+            <p class="text-gray-400 mb-6">Premium Discord Services & Social Media Growth</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://discord.com/invite/46YYRSSAJF" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">Discord</a>
+                <a href="https://instagram.com/zalixstore" target="_blank" class="text-gray-400 hover:text-pink-400 transition-colors">Instagram</a>
+                <a href="https://x.com/zalixboosts" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">Twitter</a>
+                <a href="https://t.me/zalixstore" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">Telegram</a>
+            </div>
+            <p class="text-sm text-gray-500">
+                © 2024 Zalix Store. All rights reserved. | Professional Discord & Social Media Services
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating space orbs
+        function createSpaceOrbs() {
+            const orbContainer = document.getElementById('space-orbs');
+            const orbCount = 120;
+            
+            setTimeout(() => {
+                const fullHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+                orbContainer.style.height = fullHeight + 'px';
+                
+                for (let i = 0; i < orbCount; i++) {
+                    const orb = document.createElement('div');
+                    orb.className = 'space-orb';
+                    
+                    const size = Math.random() * 8 + 2;
+                    orb.style.width = size + 'px';
+                    orb.style.height = size + 'px';
+                    
+                    orb.style.left = Math.random() * 100 + '%';
+                    orb.style.top = Math.random() * fullHeight + 'px';
+                    
+                    orb.style.animationDelay = Math.random() * 6 + 's';
+                    orb.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                    orb.style.opacity = Math.random() * 0.6 + 0.3;
+                    
+                    orbContainer.appendChild(orb);
+                }
+            }, 100);
+        }
+
+        // Smooth scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createSpaceOrbs();
+            
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            animateElements.forEach(el => observer.observe(el));
+        });
+
+        // Mobile menu toggle
+        document.querySelector('button').addEventListener('click', function() {
+            alert('Mobile menu - you can implement a slide-out menu here!');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963cce3af0bd1ec2',t:'MTc1MzI5MDc3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
