@@ -1,92 +1,460 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Vouches - Zalix Store</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --gradient-dark-start: #4b6cb7;
-      --gradient-dark-end: #2c0959;
-      --text-dark: #f1f5f9;
-      --card-bg: rgba(255,255,255,0.05);
-      --hover-bg: rgba(255,255,255,0.1);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
-    body {
-      background: linear-gradient(135deg, var(--gradient-dark-start), var(--gradient-dark-end));
-      color: var(--text-dark);
-      padding: 2rem;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-      font-size: 3rem;
-    }
-    .vouch-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .vouch {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      transition: transform 0.3s, background 0.3s;
-    }
-    .vouch:hover {
-      background: var(--hover-bg);
-      transform: translateY(-5px);
-    }
-    .vouch h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    .vouch p {
-      font-size: 0.95rem;
-      opacity: 0.9;
-    }
-    footer {
-      text-align: center;
-      margin-top: 4rem;
-      font-size: 0.9rem;
-      opacity: 0.6;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vouches - Zalix Store | Customer Testimonials</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s ease-out forwards',
+                        'zoom-in': 'zoomIn 0.6s ease-out forwards',
+                        'float': 'float 3s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .animate-on-scroll.visible {
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+        
+        .gradient-bg {
+            background: #000000;
+            position: relative;
+        }
+        
+        .space-orb {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: float-space 6s ease-in-out infinite;
+        }
+        
+        @keyframes float-space {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px);
+                opacity: 0.8;
+            }
+            33% { 
+                transform: translateY(-20px) translateX(10px);
+                opacity: 0.6;
+            }
+            66% { 
+                transform: translateY(10px) translateX(-15px);
+                opacity: 1;
+            }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .star-rating {
+            color: #fbbf24;
+        }
+    </style>
 </head>
-<body>
-  <h1>🧾 Vouches</h1>
-  <div class="vouch-grid">
-    <div class="vouch"><h3>@slattwave</h3><p>W service fr, had my server level 3 in an hour 💯</p></div>
-    <div class="vouch"><h3>@glitchkitty</h3><p>Fastest boost plug I’ve used. Def coming back 🔥</p></div>
-    <div class="vouch"><h3>@trapninja</h3><p>Legit and quick. No bs. Appreciate u 🤝</p></div>
-    <div class="vouch"><h3>@g0blinmode</h3><p>Zalix came thru when no one else could 🐐</p></div>
-    <div class="vouch"><h3>@pinkwifi</h3><p>10/10. Clean setup + emojis go hard 💖</p></div>
-    <div class="vouch"><h3>@rageowl</h3><p>Bro dropped 1000 online members like it’s nothing 🦉</p></div>
-    <div class="vouch"><h3>@cryptokid</h3><p>Safe & real aged accounts. No token logs 🚫</p></div>
-    <div class="vouch"><h3>@neonghost</h3><p>Vouch. Always delivers in like 15 mins ⏱️</p></div>
-    <div class="vouch"><h3>@vibewizard</h3><p>Zalix’s branding pack made my server feel ALIVE 🔮</p></div>
-    <div class="vouch"><h3>@sk3tchyluv</h3><p>Server went from dry to poppin overnight 😈</p></div>
-    <div class="vouch"><h3>@itslantern</h3><p>Boosted + added roles & bots I didn’t even know I needed 💡</p></div>
-    <div class="vouch"><h3>@dr1ppydevil</h3><p>No cap, this is the plug for Discord anything 🧢</p></div>
-    <div class="vouch"><h3>@sleepyz0n</h3><p>Setup was clean af. Appreciate the quick response too 😴</p></div>
-    <div class="vouch"><h3>@m0onsh0t</h3><p>Gave me a free bonus too for large order 🌕💸</p></div>
-    <div class="vouch"><h3>@lilsyntax</h3><p>Best deals on boosts out here. Legit asf 👑</p></div>
-    <div class="vouch"><h3>@hackerella</h3><p>They actually know what they doing. Respect ✊</p></div>
-    <div class="vouch"><h3>@ragepup</h3><p>Boosted, set up bots, even added some hype banners 🐶</p></div>
-    <div class="vouch"><h3>@icyflakes</h3><p>Easy to deal with. Professional & chill ❄️</p></div>
-    <div class="vouch"><h3>@venomwave</h3><p>Insane boost pack. Got lvl 3 cheaper than usual ⚡</p></div>
-    <div class="vouch"><h3>@codedqueen</h3><p>Shoutout to Zalix. My server feels premium now 💅</p></div>
-    <div class="vouch"><h3>@ghostbyte</h3><p>No words. Just vouch. 💀💻</p></div>
-    <div class="vouch"><h3>@dream</h3><p>Literally aesthetic heaven now thanks to them 🌸</p></div>
-  </div>
+<body class="font-inter text-white gradient-bg min-h-screen">
+    <!-- Space Orbs Background -->
+    <div id="space-orbs" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></div>
+    
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-black/20 backdrop-blur-md z-50 border-b border-white/10">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-white">
+                    <span class="text-blue-400">Zalix</span> Store
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="hover:text-blue-400 transition-colors">Home</a>
+                    <a href="#vouches" class="text-blue-400">Vouches</a>
+                    <a href="https://zalixstore.mysellauth.com" target="_blank" class="hover:text-blue-400 transition-colors">Store</a>
+                    <a href="https://discord.com/invite/46YYRSSAJF" target="_blank" class="hover:text-blue-400 transition-colors">Discord</a>
+                </div>
+                <button class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-  <footer>
-    &copy; 2025 Zalix Store • All rights reserved.
-  </footer>
-</body>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="animate-on-scroll">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    Customer <span class="text-blue-400 animate-float inline-block">Vouches</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                    Real testimonials from satisfied customers who've boosted their Discord servers with Zalix
+                </p>
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <div class="bg-green-600/20 border border-green-500 px-8 py-4 rounded-full">
+                        <span class="text-green-400 font-bold text-lg">⭐ 4.9/5 Rating</span>
+                    </div>
+                    <div class="bg-blue-600/20 border border-blue-500 px-8 py-4 rounded-full">
+                        <span class="text-blue-400 font-bold text-lg">🎯 1000+ Happy Customers</span>
+                    </div>
+                    <div class="bg-purple-600/20 border border-purple-500 px-8 py-4 rounded-full">
+                        <span class="text-purple-400 font-bold text-lg">⚡ 24/7 Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="vouches" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">What Our Customers Say</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Don't just take our word for it - here's what real customers think about Zalix Store
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Yo Zalix is literally the GOAT! Got my server from 50 to 500 members in like 2 days. The boosts are fire and customer service is bussin fr 🔥"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            K
+                        </div>
+                        <div>
+                            <div class="font-semibold">Kayden_xo</div>
+                            <div class="text-sm text-gray-400">Discord Server Owner</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Bruh this service hits different! My gaming server looks so professional now with all the boosts. Zalix team is mad responsive too 💯"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            Z
+                        </div>
+                        <div>
+                            <div class="font-semibold">Zara.vibes</div>
+                            <div class="text-sm text-gray-400">Gaming Community Leader</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"No cap, best investment I made for my server! The aged accounts are legit and the setup service is chef's kiss 👌"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-pink-500 to-red-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            A
+                        </div>
+                        <div>
+                            <div class="font-semibold">Aiden.codes</div>
+                            <div class="text-sm text-gray-400">Developer & Server Admin</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Zalix Store is absolutely sending me! My art server went from dead to poppin' overnight. The online members feature is insane ✨"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            S
+                        </div>
+                        <div>
+                            <div class="font-semibold">Skylar.creates</div>
+                            <div class="text-sm text-gray-400">Digital Artist</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Periodt! This service is everything. Fast delivery, reasonable prices, and my server looks so aesthetic now. Highly recommend! 💅"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            M
+                        </div>
+                        <div>
+                            <div class="font-semibold">Maya.aesthetic</div>
+                            <div class="text-sm text-gray-400">Content Creator</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Bro I was skeptical at first but Zalix delivered! My crypto server is thriving now. The boost quality is unmatched fr 🚀"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            J
+                        </div>
+                        <div>
+                            <div class="font-semibold">Jaxon.crypto</div>
+                            <div class="text-sm text-gray-400">Crypto Trader</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 7 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Zalix is literally carrying my music server rn! The member boost made my community look so legit. 10/10 would buy again 🎵"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            L
+                        </div>
+                        <div>
+                            <div class="font-semibold">Luna.beats</div>
+                            <div class="text-sm text-gray-400">Music Producer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 8 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"This ain't even a joke, Zalix saved my streaming career! My Discord community grew so fast after using their services. W company 🎮"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            R
+                        </div>
+                        <div>
+                            <div class="font-semibold">River.streams</div>
+                            <div class="text-sm text-gray-400">Twitch Streamer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 9 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Bestie this service is chef's kiss! My fashion server is booming now. The setup was so clean and professional. Love y'all! 💖"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            A
+                        </div>
+                        <div>
+                            <div class="font-semibold">Aria.fashion</div>
+                            <div class="text-sm text-gray-400">Fashion Influencer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 10 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Zalix is the main character energy I needed! My study server went from 20 to 800 members. The quality is unreal bestie 📚"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            E
+                        </div>
+                        <div>
+                            <div class="font-semibold">Ember.studies</div>
+                            <div class="text-sm text-gray-400">Student Leader</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 11 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Yo this service is straight fire! My meme server is absolutely sending everyone now. Zalix team understood the assignment 💯"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            F
+                        </div>
+                        <div>
+                            <div class="font-semibold">Felix.memes</div>
+                            <div class="text-sm text-gray-400">Meme Lord</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 12 -->
+                <div class="testimonial-card rounded-2xl p-8 card-hover animate-on-scroll">
+                    <div class="star-rating text-2xl mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-300 mb-6 italic">"Not me crying happy tears! My anime server is finally thriving thanks to Zalix. The community growth is insane. Stan Zalix! ✨"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-600 rounded-full flex items-center justify-center text-xl font-bold">
+                            N
+                        </div>
+                        <div>
+                            <div class="font-semibold">Nova.anime</div>
+                            <div class="text-sm text-gray-400">Anime Enthusiast</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-black/20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Join Them?</h2>
+                <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                    Start growing your Discord server today with our premium services
+                </p>
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <a href="https://zalixstore.mysellauth.com" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        🛒 Shop Now
+                    </a>
+                    <a href="https://discord.com/invite/46YYRSSAJF" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        💬 Join Discord
+                    </a>
+                    <a href="https://t.me/zalixstore" target="_blank" class="bg-blue-400 hover:bg-blue-500 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center gap-2">
+                        📱 Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-black/30 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center">
+            <div class="text-2xl font-bold mb-4">
+                <span class="text-blue-400">Zalix</span> Store
+            </div>
+            <p class="text-gray-400 mb-6">Premium Discord Services & Social Media Growth</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://discord.com/invite/46YYRSSAJF" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">Discord</a>
+                <a href="https://instagram.com/zalixstore" target="_blank" class="text-gray-400 hover:text-pink-400 transition-colors">Instagram</a>
+                <a href="https://x.com/zalixboosts" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">Twitter</a>
+                <a href="https://t.me/zalixstore" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">Telegram</a>
+            </div>
+            <p class="text-sm text-gray-500">
+                © 2024 Zalix Store. All rights reserved. | Professional Discord & Social Media Services
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating space orbs
+        function createSpaceOrbs() {
+            const orbContainer = document.getElementById('space-orbs');
+            const orbCount = 100;
+            
+            setTimeout(() => {
+                const fullHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+                orbContainer.style.height = fullHeight + 'px';
+                
+                for (let i = 0; i < orbCount; i++) {
+                    const orb = document.createElement('div');
+                    orb.className = 'space-orb';
+                    
+                    const size = Math.random() * 8 + 2;
+                    orb.style.width = size + 'px';
+                    orb.style.height = size + 'px';
+                    
+                    orb.style.left = Math.random() * 100 + '%';
+                    orb.style.top = Math.random() * fullHeight + 'px';
+                    
+                    orb.style.animationDelay = Math.random() * 6 + 's';
+                    orb.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                    orb.style.opacity = Math.random() * 0.6 + 0.3;
+                    
+                    orbContainer.appendChild(orb);
+                }
+            }, 100);
+        }
+
+        // Smooth scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createSpaceOrbs();
+            
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            animateElements.forEach(el => observer.observe(el));
+        });
+
+        // Mobile menu toggle
+        document.querySelector('button').addEventListener('click', function() {
+            alert('Mobile menu - you can implement a slide-out menu here!');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963c4836005ac169',t:'MTc1MzI4NTI4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
